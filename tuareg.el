@@ -1125,7 +1125,6 @@ Special keys for Tuareg mode:\\{tuareg-mode-map}"
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'tuareg-indent-command)
   (unless tuareg-use-syntax-ppss
-    (make-local-hook 'before-change-functions)
     (add-hook 'before-change-functions 'tuareg-before-change-function nil t))
   (make-local-variable 'normal-auto-fill-function)
   (setq normal-auto-fill-function 'tuareg-auto-fill-function)
@@ -1245,13 +1244,12 @@ fragment. The erroneous fragment is also temporarily highlighted if
 possible."
  (if (eq major-mode 'tuareg-mode)
      (let ((beg nil) (end nil))
-       (save-excursion
-	 (set-buffer compilation-last-buffer)
-	 (save-excursion
-	   (goto-char (window-point (get-buffer-window (current-buffer) t)))
-	   (if (looking-at tuareg-error-chars-regexp)
-	       (setq beg (string-to-number (tuareg-match-string 1))
-		     end (string-to-number (tuareg-match-string 2))))))
+       (with-current-buffer compilation-last-buffer
+         (save-excursion
+           (goto-char (window-point (get-buffer-window (current-buffer) t)))
+           (if (looking-at tuareg-error-chars-regexp)
+               (setq beg (string-to-number (tuareg-match-string 1))
+                     end (string-to-number (tuareg-match-string 2))))))
        (beginning-of-line)
        (if beg
 	   (progn
