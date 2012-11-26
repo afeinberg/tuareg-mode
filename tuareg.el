@@ -1438,11 +1438,11 @@ If found, return the actual text of the keyword or operator."
 (defun tuareg-find-match ()
   (tuareg-find-kwop tuareg-find-kwop-regexp))
 
-(defconst tuareg-find-,-match-regexp
+(defconst tuareg-find-comma-match-regexp
   (tuareg-make-find-kwop-regexp
    "\\<\\(and\\|match\\|begin\\|else\\|exception\\|then\\|try\\|with\\|or\\|fun\\|function\\|let\\|do\\)\\>\\|->\\|[[{(]"))
-(defun tuareg-find-,-match ()
-  (tuareg-find-kwop tuareg-find-,-match-regexp))
+(defun tuareg-find-comma-match ()
+  (tuareg-find-kwop tuareg-find-comma-match-regexp))
 
 (defconst tuareg-find-with-match-regexp
   (tuareg-make-find-kwop-regexp
@@ -1922,7 +1922,7 @@ Returns t iff skipped to indentation."
 		  ((string= kwop ",")
 		   (if (looking-at ",[ \t]*\\((\\*\\|$\\)")
 		       (progn
-			 (setq kwop (tuareg-find-,-match))
+			 (setq kwop (tuareg-find-comma-match))
 			 (if (or (looking-at "[[{(]\\|\\.<")
 				 (and (looking-at "[<|]")
 				      (char-equal ?\[ (preceding-char))
