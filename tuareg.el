@@ -1125,7 +1125,7 @@ Special keys for Tuareg mode:\\{tuareg-mode-map}"
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'tuareg-indent-command)
   (unless tuareg-use-syntax-ppss
-    (make-local-hook 'before-change-functions)
+   ;; (make-local-hook 'before-change-functions)
     (add-hook 'before-change-functions 'tuareg-before-change-function nil t))
   (make-local-variable 'normal-auto-fill-function)
   (setq normal-auto-fill-function 'tuareg-auto-fill-function)
